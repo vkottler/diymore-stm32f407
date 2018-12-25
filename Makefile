@@ -66,10 +66,10 @@ $(OBJ_DIR)/%.elf: $(APP_DIR)/%.o $(OBJECTS)
 ###############################################################################
 
 %.dump: %.elf
-		$(TOOLCHAIN)objdump -D $< > $@
+	$(TOOLCHAIN)objdump -D $< > $@
 
 %-dump: $(OBJ_DIR)/%.dump
-		$(EDITOR) $<
+	$(EDITOR) $<
 
 JLINK_FILE = ./temp.jlink
 JLINK_ARGS = -device STM32F407VG -if SWD -speed 4000 -autoconnect 1
@@ -81,7 +81,7 @@ JLINK_ARGS = -device STM32F407VG -if SWD -speed 4000 -autoconnect 1
 	@rm $(JLINK_FILE)
 
 %-debug: $(OBJ_DIR)/%.bin
-		JLinkGDBServer $(JLINK_ARGS)
+	JLinkGDBServer $(JLINK_ARGS)
 
 %-gdb: $(OBJ_DIR)/%.elf
 	$(TOOLCHAIN)gdb $<
